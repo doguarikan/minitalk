@@ -1,23 +1,23 @@
-SRCS = ft_printf.c ft_atoi.c
+NAME = serverclient
+SRCS = ft_printf.c
 OBJS = $(SRCS:.c=.o)
-NAMESR = server
-NAMECL = client  
+SERVER = server
+CLIENT = client  
 
 CFLAGS = -Wall -Wextra -Werror
 
-all: server client
+NAME = $(CLIENT) $(SERVER)
 
-$(NAMESR): server.o $(OBJS)
-	gcc $(CFLAGS) $^ -o $@
+all: $(NAME)
 
-$(NAMECL): client.o $(OBJS)
-	gcc $(CFLAGS) $^ -o $@
+$(SERVER): server.o $(OBJS)
+	gcc $(CFLAGS) server.o $(OBJS) -o $(SERVER)
 
-$(OBJS): %.o: %.c
-	gcc $(CFLAGS) -c $< -o $@
+$(CLIENT): client.o $(OBJS)
+	gcc $(CFLAGS) client.o $(OBJS) -o $(CLIENT)
 
 clean:
-	rm -rf *.o
+	rm -rf server.o client.o $(OBJS)
 
 fclean: clean
 	rm -rf client server
